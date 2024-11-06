@@ -1,12 +1,10 @@
-from http.server import HTTPServer, SimpleHTTPRequestHandler
-import os
+from flask import Flask
 
-def run(server_class=HTTPServer, handler_class=SimpleHTTPRequestHandler):
-    port = int(os.environ.get("PORT", 8080))
-    server_address = ('', port)
-    httpd = server_class(server_address, handler_class)
-    print(f"Starting httpd server on port {port}")
-    httpd.serve_forever()
+app = Flask(__name__)
 
-if __name__ == "__main__":
-    run()
+@app.route('/')
+def hello():
+    return "Hello from OpenShift!"
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8080)
